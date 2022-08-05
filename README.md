@@ -19,8 +19,8 @@ For the setup, it is assumed that there are multiple LND nodes running with conn
 
 * Create a config file for `lnmuxd` named `lnmux.yml`. An [example](lnmux.yml.example) can be found in this repository. The config file contains the following elements:
   * LND nodes configuration: TLS certificate, macaroon, address and pubkey. Pubkey is configured as a protection against unintentionally connecting to the wrong node.
-  * Postgres connection string for the database created above.
-  * 32-byte Identity PRIVATE key. This key is used to generate invoices and decode incoming htlcs. In a production environment, this key must be protected carefully.
+  * Postgres connection string for the database created above. (can be overridden by the environment variable `LNMUX_PERSISTENCE_POSTGRES_DSN` to avoid exposing credentials)
+  * 32-byte Identity PRIVATE key. This key is used to generate invoices and decode incoming htlcs. In a production environment, this key must be protected carefully.(can be overridden by the environment variable `LNMUX_IDENTITY_KEY` to avoid exposing the private key)
 
 * Initialize the database: `go run ./cmd/lnmuxd -c lnmux.yml migrate init`
 
